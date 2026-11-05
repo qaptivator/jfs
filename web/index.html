@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>jfs — JAVA_HOME manager for Java fans</title>
+		<title>jfs ☕︎ JAVA_HOME manager for Java fans</title>
 		<meta
 			name="description"
 			content="jfs switches local JDK installs on Windows by retargeting one NTFS junction. JAVA_HOME never changes again."
@@ -114,13 +114,24 @@
 			.steps div {
 				border-top: 1px solid var(--line);
 				padding-top: 12px;
+				color: var(--muted);
 			}
 			.steps b {
 				display: block;
+				color: var(--ink);
 			}
 			footer {
 				color: var(--muted);
 				padding: 28px 0 48px;
+			}
+			.small {
+				font-size: 10px;
+				opacity: 50%;
+			}
+			code {
+				background: var(--panel);
+				border-radius: 5px;
+				padding: 2px;
 			}
 		</style>
 	</head>
@@ -130,11 +141,12 @@
 			<a href="https://github.com/qaptivator/jfs">GitHub</a>
 		</header>
 		<main>
-			<h1>Stop editing <span>JAVA_HOME</span>.</h1>
+			<h1>Stop editing <span>JAVA_HOME</span></h1>
 			<p class="lede">
-				jfs is a Windows Java version manager. The name is Java Fucking Sucks.
-				Point it at JDKs you already have, then switch with one command. The
-				variable stays put. A directory junction moves.
+				jfs <span class="small">(Java Fucking Sucks)</span> is a Windows Java
+				version manager. Point it at JDKs you already have, then switch with one
+				command. Your actual <code>JAVA_HOME</code> environment variable stays
+				unchanged. A directory junction moves instead.
 			</p>
 
 			<div class="panel">
@@ -211,15 +223,19 @@
 					releases:
 					<a href="https://github.com/qaptivator/jfs"
 						>github.com/qaptivator/jfs</a
-					>. MIT, acdev.
+					>. MIT, acdev 2026.
 				</p>
 			</footer>
 		</main>
 		<script>
 			document.getElementById('copy').addEventListener('click', async () => {
+				const ogText = document.getElementById('copy').textContent
 				const text = document.getElementById('install').textContent
 				await navigator.clipboard.writeText(text)
 				document.getElementById('copy').textContent = 'Copied'
+				setTimeout(() => {
+					document.getElementById('copy').textContent = ogText
+				}, 1000)
 			})
 		</script>
 	</body>
