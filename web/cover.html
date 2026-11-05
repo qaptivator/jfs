@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>jfs cover</title>
+		<meta name="robots" content="noindex, nofollow" />
+		<meta name="theme-color" content="#14120e" />
+		<meta name="color-scheme" content="dark" />
+		<link rel="icon" href="/favicon.ico" sizes="256x256" />
+		<style>
+			:root {
+				color-scheme: dark;
+				--bg: #14120e;
+				--panel: #1c1914;
+				--ink: #f4efe4;
+				--muted: #b7ab96;
+				--line: #3c3428;
+				--lime: #d6f25c;
+				--hot: #ff5a36;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				min-width: 1000px;
+				min-height: 420px;
+				background: #0b0a08;
+				color: var(--ink);
+				font: 16px/1.4 'Segoe UI', sans-serif;
+			}
+			body {
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				padding: 24px;
+			}
+			.hint {
+				position: fixed;
+				top: 12px;
+				left: 16px;
+				color: #6e6558;
+				font: 12px 'Cascadia Mono', Consolas, monospace;
+			}
+			.cover {
+				width: 1000px;
+				height: 420px;
+				background: var(--bg);
+				border: 1px solid var(--line);
+				display: grid;
+				grid-template-columns: 1fr 460px;
+				grid-template-rows: 1fr auto;
+				gap: 20px 28px;
+				padding: 28px 32px 24px;
+				overflow: hidden;
+			}
+			.brand {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				margin-bottom: 18px;
+			}
+			.brand img {
+				width: 48px;
+				height: 48px;
+				border-radius: 10px;
+			}
+			.brand strong {
+				font: 700 22px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace;
+				letter-spacing: 0.06em;
+			}
+			h1 {
+				font-size: 52px;
+				line-height: 0.92;
+				letter-spacing: -0.045em;
+				margin: 0 0 14px;
+			}
+			h1 span {
+				color: var(--hot);
+			}
+			.lede {
+				margin: 0;
+				color: var(--muted);
+				font-size: 17px;
+				max-width: 22em;
+			}
+			.install {
+				grid-column: 1 / -1;
+				background: var(--panel);
+				border: 1px solid var(--line);
+				border-radius: 10px;
+				padding: 14px 18px;
+				font: 22px/1.3 'Cascadia Mono', 'Cascadia Code', Consolas, monospace;
+				color: var(--lime);
+				text-align: center;
+			}
+			.terminal {
+				align-self: stretch;
+				border: 1px solid var(--line);
+				border-radius: 12px;
+				overflow: hidden;
+				background: #0a0907;
+				display: flex;
+				flex-direction: column;
+			}
+			.terminal-bar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 0 0 12px;
+				background: var(--panel);
+				border-bottom: 1px solid var(--line);
+				font: 11px 'Cascadia Mono', Consolas, monospace;
+				color: var(--muted);
+				min-height: 32px;
+			}
+			.terminal-controls {
+				display: flex;
+				align-self: stretch;
+			}
+			.terminal-controls span {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 36px;
+			}
+			.terminal pre {
+				margin: 0;
+				padding: 14px 16px;
+				/*12.5px/1.45*/
+				font: 18px/1.45 'Cascadia Mono', 'Cascadia Code', Consolas, monospace;
+				color: #d8d0c4;
+				white-space: pre;
+			}
+			.prompt {
+				color: var(--lime);
+			}
+			.active {
+				color: var(--lime);
+			}
+		</style>
+	</head>
+	<body>
+		<p class="hint">1000 × 420 — screenshot the frame</p>
+		<div class="cover">
+			<div>
+				<div class="brand">
+					<img src="/assets/logo.png" width="512" height="512" alt="" />
+					<strong>jfs</strong>
+				</div>
+				<h1>Stop editing <span>JAVA_HOME</span></h1>
+				<p class="lede">
+					Windows Java version manager. Point it at JDKs you already have. One
+					command switches. The junction moves.
+				</p>
+			</div>
+			<div class="terminal">
+				<div class="terminal-bar">
+					<span>Windows PowerShell</span>
+					<div class="terminal-controls" aria-hidden="true">
+						<span>
+							<svg width="10" height="10" viewBox="0 0 10 10">
+								<path
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+									d="M1 5h8"
+								/>
+							</svg>
+						</span>
+						<span>
+							<svg width="10" height="10" viewBox="0 0 10 10">
+								<rect
+									x="1.5"
+									y="1.5"
+									width="7"
+									height="7"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+								/>
+							</svg>
+						</span>
+						<span>
+							<svg width="10" height="10" viewBox="0 0 10 10">
+								<path
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+									d="M2 2l6 6M8 2l-6 6"
+								/>
+							</svg>
+						</span>
+					</div>
+				</div>
+				<pre><span class="prompt">PS C:\Users\you&gt;</span> java -version
+openjdk version "25.0.4.1"
+
+<span class="prompt">PS C:\Users\you&gt;</span> jfs use 8
+Now using Java 8
+
+<span class="prompt">PS C:\Users\you&gt;</span> java -version
+openjdk version "1.8.0_442"</pre>
+			</div>
+			<div class="install">irm https://jfs.acdev.app/install.ps1 | iex</div>
+		</div>
+	</body>
+</html>
