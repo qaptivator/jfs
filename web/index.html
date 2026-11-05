@@ -149,7 +149,34 @@
 				border: 1px solid var(--line);
 				border-radius: 14px;
 				padding: 18px 18px 14px;
-				margin: 28px 0;
+				margin: 0 0 16px;
+			}
+			.copy {
+				margin-top: 12px;
+				padding: 6px;
+				border: 0;
+				border-radius: 8px;
+				background: transparent;
+				color: var(--muted);
+				line-height: 0;
+				cursor: pointer;
+			}
+			.copy:hover {
+				color: var(--ink);
+				background: #252118;
+			}
+			.copy svg {
+				display: block;
+			}
+			.copy .check {
+				display: none;
+			}
+			.copy.copied .clipboard {
+				display: none;
+			}
+			.copy.copied .check {
+				display: block;
+				color: var(--lime);
 			}
 			pre,
 			code {
@@ -208,13 +235,81 @@
 				padding: 28px 0 48px;
 			}
 			.small {
-				font-size: 10px;
+				font-size: 15px;
 				opacity: 50%;
 			}
 			code {
 				background: var(--panel);
 				border-radius: 5px;
 				padding: 2px;
+			}
+			.shell-toasts {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+				margin: 28px 0 12px;
+			}
+			.shell-toast {
+				margin: 0;
+				padding: 6px 14px;
+				border-radius: 999px;
+				border: 1px solid var(--line);
+				background: var(--panel);
+				color: var(--muted);
+				font: 13px 'Segoe UI', sans-serif;
+				cursor: pointer;
+				transition: border-color 0.15s, color 0.15s, background 0.15s;
+			}
+			.shell-toast:hover {
+				color: var(--ink);
+				border-color: var(--muted);
+			}
+			.shell-toast.active {
+				color: var(--ink);
+				border-color: var(--lime);
+				background: #252118;
+			}
+			.terminal {
+				border: 1px solid var(--line);
+				border-radius: 14px;
+				overflow: hidden;
+				background: #0a0907;
+				margin: 0 0 28px;
+			}
+			.terminal-bar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 0 0 14px;
+				background: var(--panel);
+				border-bottom: 1px solid var(--line);
+				font: 12px 'Cascadia Mono', Consolas, monospace;
+				color: var(--muted);
+				min-height: 36px;
+			}
+			.terminal-controls {
+				display: flex;
+				align-self: stretch;
+				margin-left: auto;
+			}
+			.terminal-controls span {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 46px;
+				color: var(--muted);
+			}
+			.terminal-controls span svg {
+				display: block;
+			}
+			.terminal pre {
+				margin: 0;
+				padding: 16px 18px 18px;
+				font-size: 13px;
+				line-height: 1.5;
+				color: #d8d0c4;
+				max-height: min(520px, 70vh);
+				overflow: auto;
 			}
 		</style>
 	</head>
@@ -236,9 +331,132 @@
 				shell hooks, no background service.
 			</p>
 
+			<div class="shell-toasts" role="tablist" aria-label="Shell for examples">
+				<button
+					type="button"
+					class="shell-toast active"
+					role="tab"
+					aria-selected="true"
+					data-shell="powershell"
+				>
+					PowerShell
+				</button>
+				<button
+					type="button"
+					class="shell-toast"
+					role="tab"
+					aria-selected="false"
+					data-shell="gitbash"
+				>
+					Git Bash
+				</button>
+				<button
+					type="button"
+					class="shell-toast"
+					role="tab"
+					aria-selected="false"
+					data-shell="cmd"
+				>
+					cmd
+				</button>
+			</div>
+
 			<div class="panel">
 				<pre id="install">irm https://jfs.acdev.app/install.ps1 | iex</pre>
-				<button type="button" id="copy">Copy install command</button>
+				<button
+					type="button"
+					class="copy"
+					id="copy"
+					aria-label="Copy install command"
+					title="Copy install command"
+				>
+					<svg
+						class="clipboard"
+						width="20"
+						height="20"
+						viewBox="0 0 16 16"
+						aria-hidden="true"
+					>
+						<rect
+							x="5.5"
+							y="3.5"
+							width="8"
+							height="10"
+							rx="1.5"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.25"
+						/>
+						<rect
+							x="2.5"
+							y="1.5"
+							width="8"
+							height="10"
+							rx="1.5"
+							fill="var(--panel)"
+							stroke="currentColor"
+							stroke-width="1.25"
+						/>
+					</svg>
+					<svg
+						class="check"
+						width="20"
+						height="20"
+						viewBox="0 0 16 16"
+						aria-hidden="true"
+					>
+						<path
+							d="M3.5 8.5l3 3 6-6.5"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+				</button>
+			</div>
+
+			<div class="terminal" id="demo-terminal">
+				<div class="terminal-bar">
+					<span id="terminal-title">Windows PowerShell</span>
+					<div class="terminal-controls" aria-hidden="true">
+						<span>
+							<svg width="10" height="10" viewBox="0 0 10 10">
+								<path
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+									d="M1 5h8"
+								/>
+							</svg>
+						</span>
+						<span>
+							<svg width="10" height="10" viewBox="0 0 10 10">
+								<rect
+									x="1.5"
+									y="1.5"
+									width="7"
+									height="7"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+								/>
+							</svg>
+						</span>
+						<span>
+							<svg width="10" height="10" viewBox="0 0 10 10">
+								<path
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+									d="M2 2l6 6M8 2l-6 6"
+								/>
+							</svg>
+						</span>
+					</div>
+				</div>
+				<pre id="demo"></pre>
 			</div>
 
 			<section class="steps">
@@ -300,7 +518,7 @@
 			<pre>
 %LOCALAPPDATA%\jfs\
   config.json     registry of names and paths
-  current         NTFS junction to the active JDK
+  current         NTFS junction/symlink to the active JDK
   bin\jfs.exe     the program</pre
 			>
 
@@ -315,13 +533,137 @@
 			</footer>
 		</main>
 		<script>
-			document.getElementById('copy').addEventListener('click', async () => {
-				const ogText = document.getElementById('copy').textContent
-				const text = document.getElementById('install').textContent
-				await navigator.clipboard.writeText(text)
-				document.getElementById('copy').textContent = 'Copied'
-				setTimeout(() => {
-					document.getElementById('copy').textContent = ogText
+			const shells = {
+				powershell: {
+					title: 'Windows PowerShell',
+					install: 'irm https://jfs.acdev.app/install.ps1 | iex',
+					demo: `PS C:\\Users\\you> java -version
+openjdk version "25.0.4.1" 2026-08-18 LTS
+OpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)
+OpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)
+
+PS C:\\Users\\you> jfs list
+  8  -> C:\\Users\\you\\.gradle\\jdks\\temurin-8-amd64-windows\\jdk8u442-b06
+  21 -> C:\\Users\\you\\.gradle\\jdks\\eclipse_adoptium-21-amd64-windows.2
+* 25 -> C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.4.101-hotspot
+
+PS C:\\Users\\you> jfs use 21
+Now using Java 21
+
+PS C:\\Users\\you> java -version
+openjdk version "21.0.11" 2026-04-21 LTS
+OpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)
+
+PS C:\\Users\\you> jfs use 8
+Now using Java 8
+
+PS C:\\Users\\you> java -version
+openjdk version "1.8.0_442"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_442-b06)
+OpenJDK 64-Bit Server VM (Temurin)(build 25.442-b06, mixed mode)`,
+				},
+				gitbash: {
+					title: 'Git Bash',
+					install:
+						'curl -fsSL https://jfs.acdev.app/install.ps1 | powershell.exe -NoProfile -ExecutionPolicy Bypass -Command -',
+					demo: `you@PC MINGW64 ~
+$ java -version
+openjdk version "25.0.4.1" 2026-08-18 LTS
+OpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)
+OpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)
+
+you@PC MINGW64 ~
+$ jfs list
+  8  -> /c/Users/you/.gradle/jdks/temurin-8-amd64-windows/jdk8u442-b06
+  21 -> /c/Users/you/.gradle/jdks/eclipse_adoptium-21-amd64-windows.2
+* 25 -> /c/Program Files/Eclipse Adoptium/jdk-25.0.4.101-hotspot
+
+you@PC MINGW64 ~
+$ jfs use 21
+Now using Java 21
+
+you@PC MINGW64 ~
+$ java -version
+openjdk version "21.0.11" 2026-04-21 LTS
+OpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)
+
+you@PC MINGW64 ~
+$ jfs use 8
+Now using Java 8
+
+you@PC MINGW64 ~
+$ java -version
+openjdk version "1.8.0_442"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_442-b06)
+OpenJDK 64-Bit Server VM (Temurin)(build 25.442-b06, mixed mode)`,
+				},
+				cmd: {
+					title: 'Command Prompt',
+					install:
+						'powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://jfs.acdev.app/install.ps1 | iex"',
+					demo: `C:\\Users\\you> java -version
+openjdk version "25.0.4.1" 2026-08-18 LTS
+OpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)
+OpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)
+
+C:\\Users\\you> jfs list
+  8  -> C:\\Users\\you\\.gradle\\jdks\\temurin-8-amd64-windows\\jdk8u442-b06
+  21 -> C:\\Users\\you\\.gradle\\jdks\\eclipse_adoptium-21-amd64-windows.2
+* 25 -> C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.4.101-hotspot
+
+C:\\Users\\you> jfs use 21
+Now using Java 21
+
+C:\\Users\\you> java -version
+openjdk version "21.0.11" 2026-04-21 LTS
+OpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)
+
+C:\\Users\\you> jfs use 8
+Now using Java 8
+
+C:\\Users\\you> java -version
+openjdk version "1.8.0_442"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_442-b06)
+OpenJDK 64-Bit Server VM (Temurin)(build 25.442-b06, mixed mode)`,
+				},
+			}
+
+			const installEl = document.getElementById('install')
+			const demoEl = document.getElementById('demo')
+			const titleEl = document.getElementById('terminal-title')
+			const copyBtn = document.getElementById('copy')
+			let copyTimer
+
+			function selectShell(id) {
+				const shell = shells[id]
+				if (!shell) return
+				installEl.textContent = shell.install
+				demoEl.textContent = shell.demo
+				titleEl.textContent = shell.title
+				document.querySelectorAll('.shell-toast').forEach((btn) => {
+					const active = btn.dataset.shell === id
+					btn.classList.toggle('active', active)
+					btn.setAttribute('aria-selected', active ? 'true' : 'false')
+				})
+			}
+
+			document.querySelectorAll('.shell-toast').forEach((btn) => {
+				btn.addEventListener('click', () => selectShell(btn.dataset.shell))
+			})
+
+			selectShell('powershell')
+
+			copyBtn.addEventListener('click', async () => {
+				await navigator.clipboard.writeText(installEl.textContent)
+				copyBtn.classList.add('copied')
+				copyBtn.setAttribute('aria-label', 'Copied')
+				clearTimeout(copyTimer)
+				copyTimer = setTimeout(() => {
+					copyBtn.classList.remove('copied')
+					copyBtn.setAttribute('aria-label', 'Copy install command')
 				}, 1000)
 			})
 		</script>

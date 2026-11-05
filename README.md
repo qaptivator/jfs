@@ -16,6 +16,40 @@ jfs add 21 "C:\path\to\jdk-21"
 jfs use 21
 ```
 
+Git Bash and cmd install one-liners are on the [landing page](https://jfs.acdev.app/).
+
+## Example
+
+Register a few JDKs once, then switch in the same terminal. `java -version` follows immediately; `JAVA_HOME` stays `%LOCALAPPDATA%\jfs\current`.
+
+```powershell
+PS C:\Users\you> java -version
+openjdk version "25.0.4.1" 2026-08-18 LTS
+OpenJDK Runtime Environment Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS)
+OpenJDK 64-Bit Server VM Temurin-25.0.4.1+1 (build 25.0.4.1+1-LTS, mixed mode, sharing)
+
+PS C:\Users\you> jfs list
+  8  -> C:\Users\you\.gradle\jdks\temurin-8-amd64-windows\jdk8u442-b06
+  21 -> C:\Users\you\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2
+* 25 -> C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot
+
+PS C:\Users\you> jfs use 21
+Now using Java 21
+
+PS C:\Users\you> java -version
+openjdk version "21.0.11" 2026-04-21 LTS
+OpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)
+
+PS C:\Users\you> jfs use 8
+Now using Java 8
+
+PS C:\Users\you> java -version
+openjdk version "1.8.0_442"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_442-b06)
+OpenJDK 64-Bit Server VM (Temurin)(build 25.442-b06, mixed mode)
+```
+
 ## How it works
 
 `JAVA_HOME` points at `%LOCALAPPDATA%\jfs\current`, which is an NTFS directory junction. `jfs use` retargets that junction, so every new `java` process follows the JDK you picked. Terminals that are already open don't need a restart.
