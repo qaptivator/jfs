@@ -1,4 +1,4 @@
-# jfs
+# [jfs](https://jfs.acdev.app/)
 
 <p align="center">
   <img src="web/assets/logo.png" alt="jfs logo, a blue coffee cup with orange steam" width="160">
@@ -9,7 +9,9 @@
 jfs (Java Fucking Sucks) is a Windows Java version manager. Point it at JDKs you already have, then switch with one command. Your `JAVA_HOME` never changes. Behind the scenes, a directory junction moves. No shims, no shell hooks, no background service.
 
 ```powershell
+# install
 irm https://jfs.acdev.app/install.ps1 | iex
+# then
 jfs add 21 "C:\path\to\jdk-21"
 jfs use 21
 ```
