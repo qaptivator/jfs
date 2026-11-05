@@ -6,7 +6,7 @@
 		<title>jfs ☕︎ Windows Java version manager for Java fans</title>
 		<meta
 			name="description"
-			content="jfs switches local JDK installs on Windows by retargeting one NTFS junction. JAVA_HOME never changes again."
+			content="Switch JDKs on Windows with one command. Point jfs at the Java installs you already have and stop editing JAVA_HOME."
 		/>
 		<meta name="author" content="acdev" />
 		<meta name="application-name" content="jfs" />
@@ -33,7 +33,7 @@
 		/>
 		<meta
 			property="og:description"
-			content="jfs switches local JDK installs on Windows by retargeting one NTFS junction. JAVA_HOME never changes again."
+			content="Switch JDKs on Windows with one command. Point jfs at the Java installs you already have and stop editing JAVA_HOME."
 		/>
 		<meta property="og:image" content="https://jfs.acdev.app/assets/logo.png" />
 		<meta property="og:image:type" content="image/png" />
@@ -50,7 +50,7 @@
 		/>
 		<meta
 			name="twitter:description"
-			content="jfs switches local JDK installs on Windows by retargeting one NTFS junction. JAVA_HOME never changes again."
+			content="Switch JDKs on Windows with one command. Point jfs at the Java installs you already have and stop editing JAVA_HOME."
 		/>
 		<meta
 			name="twitter:image"
@@ -69,7 +69,7 @@
 				"operatingSystem": "Windows 10, Windows 11",
 				"url": "https://jfs.acdev.app/",
 				"image": "https://jfs.acdev.app/assets/logo.png",
-				"description": "jfs switches local JDK installs on Windows by retargeting one NTFS junction. JAVA_HOME never changes again.",
+				"description": "Switch JDKs on Windows with one command. Point jfs at the Java installs you already have and stop editing JAVA_HOME.",
 				"license": "https://opensource.org/licenses/MIT",
 				"codeRepository": "https://github.com/qaptivator/jfs",
 				"author": { "@type": "Organization", "name": "acdev" },
@@ -228,7 +228,8 @@
 				jfs <span class="small">(Java Fucking Sucks)</span> is a Windows Java
 				version manager. Point it at JDKs you already have, then switch with one
 				command. Your actual <code>JAVA_HOME</code> environment variable stays
-				unchanged. A directory junction moves instead.
+				unchanged. Behind the scenes, a directory junction moves. No shims, no
+				shell hooks, no background service.
 			</p>
 
 			<div class="panel">

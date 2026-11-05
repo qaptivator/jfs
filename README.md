@@ -4,9 +4,19 @@
   <img src="web/assets/logo.png" alt="jfs logo, a blue coffee cup with orange steam" width="160">
 </p>
 
-Java Fucking Sucks. A `JAVA_HOME` manager for Java fans on Windows.
+**Windows Java version manager for Java fans.**
 
-`JAVA_HOME` stays pointed at `%LOCALAPPDATA%\jfs\current`. That path is an NTFS directory junction. `jfs use` retargets the junction, so every new `java` process follows the JDK you picked. There is no shim, no shell hook, and no background service.
+jfs (Java Fucking Sucks) is a Windows Java version manager. Point it at JDKs you already have, then switch with one command. Your `JAVA_HOME` never changes. Behind the scenes, a directory junction moves. No shims, no shell hooks, no background service.
+
+```powershell
+irm https://jfs.acdev.app/install.ps1 | iex
+jfs add 21 "C:\path\to\jdk-21"
+jfs use 21
+```
+
+## How it works
+
+`JAVA_HOME` points at `%LOCALAPPDATA%\jfs\current`, which is an NTFS directory junction. `jfs use` retargets that junction, so every new `java` process follows the JDK you picked. Terminals that are already open don't need a restart.
 
 jfs does not download JDKs. You register directories that are already on disk.
 
