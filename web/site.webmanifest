@@ -1,0 +1,23 @@
+{
+  "name": "jfs",
+  "short_name": "jfs",
+  "description": "JAVA_HOME manager for Java fans. Switches local JDKs on Windows by retargeting one NTFS junction.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#14120e",
+  "theme_color": "#14120e",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

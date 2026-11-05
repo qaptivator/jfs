@@ -1,5 +1,9 @@
 # jfs
 
+<p align="center">
+  <img src="web/assets/logo.png" alt="jfs logo, a blue coffee cup with orange steam" width="160">
+</p>
+
 Java Fucking Sucks. A `JAVA_HOME` manager for Java fans on Windows.
 
 `JAVA_HOME` stays pointed at `%LOCALAPPDATA%\jfs\current`. That path is an NTFS directory junction. `jfs use` retargets the junction, so every new `java` process follows the JDK you picked. There is no shim, no shell hook, and no background service.
@@ -63,12 +67,12 @@ jfs rm 8
 
 ```json
 {
-  "current": "25",
-  "versions": {
-    "8": "C:\\Users\\ac\\.gradle\\jdks\\temurin-8-amd64-windows\\jdk8u442-b06",
-    "21": "C:\\Users\\ac\\.gradle\\jdks\\eclipse_adoptium-21-amd64-windows.2",
-    "25": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.4.101-hotspot"
-  }
+	"current": "25",
+	"versions": {
+		"8": "C:\\Users\\ac\\.gradle\\jdks\\temurin-8-amd64-windows\\jdk8u442-b06",
+		"21": "C:\\Users\\ac\\.gradle\\jdks\\eclipse_adoptium-21-amd64-windows.2",
+		"25": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.4.101-hotspot"
+	}
 }
 ```
 
@@ -97,7 +101,7 @@ cargo test
 
 Rust 1.85 or newer. Pull requests against `main`. The tool is Windows-only because version switching is an NTFS junction (`mklink /J`), which does not need administrator rights or Developer Mode.
 
-Host the `web/` directory at `jfs.acdev.app`. It is the landing page plus `install.ps1` and `install.bat`.
+Host the `web/` directory at `jfs.acdev.app`. It is the landing page, `install.ps1`, `install.bat`, `favicon.ico`, `assets/logo.png`, `sitemap.xml`, `robots.txt`, and `site.webmanifest`.
 
 ## License
 
