@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jfs — JAVA_HOME manager for Java fans</title>
+  <meta name="description" content="jfs switches local JDK installs on Windows by retargeting one NTFS junction. JAVA_HOME never changes again.">
+  <link rel="canonical" href="https://jfs.acdev.app/">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #14120e;
+      --panel: #1c1914;
+      --ink: #f4efe4;
+      --muted: #b7ab96;
+      --line: #3c3428;
+      --lime: #d6f25c;
+      --hot: #ff5a36;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 17px/1.5 "Segoe UI", sans-serif;
+    }
+    a { color: var(--lime); }
+    header, main { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: baseline; padding: 28px 0 8px; }
+    header strong { font: 700 20px "Cascadia Mono", "Cascadia Code", Consolas, monospace; letter-spacing: 0.04em; }
+    h1 { font-size: clamp(40px, 7vw, 68px); line-height: 0.95; letter-spacing: -0.04em; margin: 24px 0 12px; }
+    h1 span { color: var(--hot); }
+    .lede { font-size: 20px; color: var(--muted); max-width: 38em; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+      margin: 28px 0;
+    }
+    pre, code { font-family: "Cascadia Mono", "Cascadia Code", Consolas, monospace; }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--lime);
+    }
+    button {
+      margin-top: 12px;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    h2 { margin-top: 40px; font-size: 22px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+    td:first-child { font-family: "Cascadia Mono", Consolas, monospace; color: var(--lime); white-space: nowrap; }
+    .steps { display: grid; gap: 12px; }
+    .steps div { border-top: 1px solid var(--line); padding-top: 12px; }
+    .steps b { display: block; }
+    footer { color: var(--muted); padding: 28px 0 48px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>jfs</strong>
+    <a href="https://github.com/qaptivator/jfs">GitHub</a>
+  </header>
+  <main>
+    <h1>Stop editing <span>JAVA_HOME</span>.</h1>
+    <p class="lede">jfs is a Windows Java version manager. The name is Java Fucking Sucks. Point it at JDKs you already have, then switch with one command. The variable stays put. A directory junction moves.</p>
+
+    <div class="panel">
+      <pre id="install">irm https://jfs.acdev.app/install.ps1 | iex</pre>
+      <button type="button" id="copy">Copy install command</button>
+    </div>
+
+    <section class="steps">
+      <div><b>1. Install once</b> The script puts <code>jfs.exe</code> in <code>%LOCALAPPDATA%\jfs\bin</code>, sets your user <code>JAVA_HOME</code> to <code>%LOCALAPPDATA%\jfs\current</code>, and adds that <code>bin</code> plus <code>%JAVA_HOME%\bin</code> to your user PATH.</div>
+      <div><b>2. Register local JDKs</b> jfs does not download Java. <code>jfs add 21 "C:\path\to\jdk"</code> checks for <code>bin\java.exe</code> and records the path.</div>
+      <div><b>3. Switch</b> <code>jfs use 21</code> retargets the <code>current</code> junction. New <code>java</code> processes follow it. Open terminals do not need a hook.</div>
+    </section>
+
+    <h2>Commands</h2>
+    <table>
+      <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td>jfs list</td><td>Show registered JDKs. The active one is marked with *.</td></tr>
+        <tr><td>jfs add &lt;name&gt; &lt;path&gt;</td><td>Register a local JDK directory.</td></tr>
+        <tr><td>jfs use &lt;name&gt;</td><td>Point the current junction at that JDK.</td></tr>
+        <tr><td>jfs current</td><td>Print the active version name.</td></tr>
+        <tr><td>jfs rm &lt;name&gt;</td><td>Forget a version. Files on disk stay. The active version cannot be removed.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Where state lives</h2>
+    <pre>%LOCALAPPDATA%\jfs\
+  config.json     registry of names and paths
+  current         NTFS junction to the active JDK
+  bin\jfs.exe     the program</pre>
+
+    <footer>
+      <p>Batch installer: <a href="/install.bat">install.bat</a>. Source and releases: <a href="https://github.com/qaptivator/jfs">github.com/qaptivator/jfs</a>. MIT, acdev.</p>
+    </footer>
+  </main>
+  <script>
+    document.getElementById("copy").addEventListener("click", async () => {
+      const text = document.getElementById("install").textContent;
+      await navigator.clipboard.writeText(text);
+      document.getElementById("copy").textContent = "Copied";
+    });
+  </script>
+</body>
+</html>
