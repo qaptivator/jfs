@@ -25,7 +25,7 @@ pub fn list(paths: &Paths) -> Result<()> {
 
     let width = config.versions.keys().map(String::len).max().unwrap_or(0);
     let mut entries: Vec<_> = config.versions.iter().collect();
-    entries.sort_by(|(left, _), (right, _)| version_sort_key(left).cmp(&version_sort_key(right)));
+    entries.sort_by_key(|(left, _)| version_sort_key(left));
 
     for (name, path) in entries {
         let active = name == &config.current;
