@@ -13,7 +13,7 @@ use crate::error::Result;
 #[command(
     name = "jfs",
     version,
-    about = "Java Fucking Sucks — JAVA_HOME manager for Java fans",
+    about = "jfs ☕︎ Windows Java version manager for Java fans",
     arg_required_else_help = true,
     after_help = "\
 JAVA_HOME stays pointed at %LOCALAPPDATA%\\jfs\\current.

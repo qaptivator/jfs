@@ -2,7 +2,7 @@
 name = "jfs"
 version = "0.1.0"
 edition = "2024"
-description = "JAVA_HOME manager for Java fans"
+description = "Windows Java version manager for Java fans"
 license = "MIT"
 repository = "https://github.com/qaptivator/jfs"
 readme = "README.md"
